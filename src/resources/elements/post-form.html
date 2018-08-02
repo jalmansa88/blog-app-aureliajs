@@ -1,0 +1,33 @@
+<template>
+  <h1 t="post-form:${title}">PostE</h1>
+  
+    <form submit.delegate="submit()">
+        <div class="form-group">
+          <label for="title" t="post-form:title">Title</label>
+          <input id="title" type="text" class="form-control" placeholder="Post Title" 
+            value.bind="post.title & validateOnChange" t="[placeholder]post-form:titlePlaceholder">
+        </div>
+
+        <div class="form-group">
+          <label for="body" t="post-form:body">Body</label>
+          <textarea name="body" rows="10" class="form-control" value.bind="post.body & validateOnChange"></textarea>
+        </div>
+
+        <div class="form-check" repeat.for="tag of tags">
+          <input id="tag" type="checkbox" class="form-check-input" value.bind="tag" checked.bind="post.tags">
+          <span class="bagde badge-pill badge-info">${tag}</span>
+        </div>
+
+        <div class="form-group">
+          <input type="text" value.bind="newTag">
+          <a href="" click.delegate="addTag()">+Tag</a>
+        </div>
+
+        <hr>
+
+        <ul if.bind="controller.errors.length > 0">
+            <li repeat.for='error of controller.errors'>${error }</li>
+        </ul>
+        <button type="submit" class="btn btn-primary" t="post-form:${title}" disabled.bind='controller.errors.length > 0'>Submit</button>
+      </form>
+</template>

@@ -1,0 +1,87 @@
+<template>
+    <require from="bootstrap/dist/css/bootstrap.css"></require>
+    <require from="./assets/styles/blog.css"></require>
+    <require from="toastr/build/toastr.min.css"></require>
+    <header>
+        <div class="blog-masthead">
+            <div class="container">
+                <nav class="nav">
+                    <a class="nav-link ${ router.currentInstruction.config.name === 'home' ? 'active' : '' }" href="#" t="nav:home">
+                Patata
+            </a>
+                    <a class="nav-link ${ router.currentInstruction.config.name === 'login' ? 'active' : '' }" route-href="login" if.bind="!currentUser" t="nav:login">
+                Log In
+            </a>
+                    <a class="nav-link ${ router.currentInstruction.config.name === 'signup' ? 'active' : '' }" route-href="signup" if.bind="!currentUser" t="nav:signup">
+                Sign Up
+            </a>
+                    <a class="nav-link ${ router.currentInstruction.config.name === 'create-post' ? 'active' : '' }" route-href="create-post" if.bind="currentUser" t="nav:newpost">
+                New Post
+            </a>
+                    <a class="nav-link" href="#" if.bind="currentUser" click.delegate="logout()" t="nav:logout">
+                Log Out
+            </a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="blog-header">
+            <div class="container">
+                <h1 class="blog-title">The Bootstrap Blog</h1>
+                <p class="lead blog-description">An example blog built with AureliaJS and Bootstrap.</p>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+
+        <div class="row">
+
+            <div class="col-sm-8 blog-main">
+
+                <router-view></router-view>
+
+            </div>
+            <!-- /.blog-main -->
+
+            <aside class="col-sm-3 ml-sm-auto blog-sidebar">
+
+                <p>Welcome, ${ currentUser || 'Guest' }</p>
+
+                <div class="sidebar-module sidebar-module-inset">
+                    <h4>Tags</h4>
+                    <a route-href="route: tag-detail; params.bind: { tag }" repeat.for="tag of tags">
+                        <span class="badge badge-pill badge-info">${ tag }</span>
+                    </a>
+                </div>
+                <div class="sidebar-module">
+                    <h4>Archives</h4>
+                    <ol class="list-unstyled">
+                        <li repeat.for="archive of archives">
+                            <a route-href="route: archive-detail; params.bind: { archive }">${ archive }</a>
+                        </li>
+                    </ol>
+                </div>
+                <div class="sidebar-module">
+                    <h4>Language</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="#" click.delegate="setLocale('en')">English</a></li>
+                        <li><a href="#" click.delegate="setLocale('fr')">français</a></li>
+                    </ol>
+                </div>
+            </aside>
+            <!-- /.blog-sidebar -->
+
+        </div>
+        <!-- /.row -->
+
+    </main>
+    <!-- /.container -->
+
+    <footer class="blog-footer">
+        <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+    </footer>
+</template>

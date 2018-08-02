@@ -1,0 +1,8 @@
+<template>
+  <require from="../../resources/elements/blog-post"></require>
+  
+  <blog-post post.bind="post"></blog-post>
+
+  <a if.bind='authS.currentUser === post.author' route-href="route: post-edit; params.bind: {slug: post.slug}" class='btn btn-outline-primary'>Edit Post</a>
+
+</template>
